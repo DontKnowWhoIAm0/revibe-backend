@@ -11,6 +11,8 @@ import ru.kpfu.itis.revibe.repository.user.UserRepository;
 import ru.kpfu.itis.revibe.security.JwtUtil;
 import ru.kpfu.itis.revibe.service.interfaces.user.AuthService;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -26,13 +28,16 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody RegisterDto dto) {
-        return authService.register(dto);
+    public ResponseEntity<Map<String, String>> register(@RequestBody RegisterDto dto) {
+        String token = authService.register(dto);
+        return ResponseEntity.ok(Map.of("token", token));
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginDto dto) {
-        return authService.login(dto);
+    public ResponseEntity<Map<String, String>> login(@RequestBody LoginDto dto) {
+        String token = authService.login(dto);
+        String userId = jwtUtil.getUserIdFromJwt(token).toString();
+        return ResponseEntity.ok(Map.of("token", token, "userId", userId));
     }
 
     @GetMapping("/me")
