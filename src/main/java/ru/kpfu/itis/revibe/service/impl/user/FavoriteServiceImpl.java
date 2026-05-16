@@ -32,7 +32,7 @@ public class FavoriteServiceImpl implements FavoriteService {
     @Override
     public void addToFavorites(UUID userId, UUID productId) {
         User user = userRepository.findById(userId).orElseThrow();
-        Product product = productRepository.findById(productId.toString()).orElseThrow();
+        Product product = productRepository.findById(productId).orElseThrow();
         if (favoriteRepository.findByUserAndProduct(user, product).isEmpty()) {
             Favorite f = new Favorite();
             f.setUser(user);
@@ -44,7 +44,7 @@ public class FavoriteServiceImpl implements FavoriteService {
     @Override
     public void removeFromFavorites(UUID userId, UUID productId) {
         User user = userRepository.findById(userId).orElseThrow();
-        Product product = productRepository.findById(productId.toString()).orElseThrow();
+        Product product = productRepository.findById(productId).orElseThrow();
         favoriteRepository.findByUserAndProduct(user, product)
                 .ifPresent(favoriteRepository::delete);
     }

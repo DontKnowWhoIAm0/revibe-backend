@@ -11,8 +11,8 @@ import java.util.UUID;
 public interface AdminService {
 
     void addProduct(ProductCreateDto dto);
-    void updateProduct(String article, ProductCreateDto dto);
-    void deleteProduct(String article);
+    void updateProduct(UUID article, ProductCreateDto dto);
+    void deleteProduct(UUID article);
 
     UserDto addEmployee(String fullName, String email, String password);
     void setEmployeeRole(UUID employeeId, String role);

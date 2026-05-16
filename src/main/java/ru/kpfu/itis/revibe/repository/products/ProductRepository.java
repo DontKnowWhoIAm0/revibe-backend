@@ -5,8 +5,9 @@ import ru.kpfu.itis.revibe.entity.products.Product;
 import ru.kpfu.itis.revibe.entity.products.Branch;
 
 import java.util.List;
+import java.util.UUID;
 
-public interface ProductRepository extends JpaRepository<Product, String> {
+public interface ProductRepository extends JpaRepository<Product, UUID> {
     List<Product> findByBranch(Branch branch);
     List<Product> findByIsSoldFalse();
 }

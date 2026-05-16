@@ -39,7 +39,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public BookingDto createBooking(UUID userId, UUID productId, UUID branchId) {
         User user = userRepository.findById(userId).orElseThrow();
-        Product product = productRepository.findById(productId.toString()).orElseThrow();
+        Product product = productRepository.findById(productId).orElseThrow();
         Branch branch = branchRepository.findById(branchId).orElseThrow();
 
         if (product.isSold()) {

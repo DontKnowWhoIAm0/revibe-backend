@@ -6,6 +6,7 @@ import ru.kpfu.itis.revibe.dto.products.ProductCreateDto;
 import ru.kpfu.itis.revibe.service.interfaces.products.ProductService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/products")
@@ -20,7 +21,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ProductDetailDto getProduct(@PathVariable String id) {
+    public ProductDetailDto getProduct(@PathVariable UUID id) {
         return productService.getProduct(id);
     }
 
@@ -30,12 +31,12 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public void updateProduct(@PathVariable String id, @RequestBody ProductCreateDto dto) {
+    public void updateProduct(@PathVariable UUID id, @RequestBody ProductCreateDto dto) {
         productService.updateProduct(id, dto);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable String id) {
+    public void deleteProduct(@PathVariable UUID id) {
         productService.deleteProduct(id);
     }
 }

@@ -56,7 +56,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void updateProduct(String article, ProductCreateDto dto) {
+    public void updateProduct(UUID article, ProductCreateDto dto) {
         Product p = productRepository.findById(article).orElseThrow();
         p.setName(dto.getName());
         p.setDescription(dto.getDescription());
@@ -72,7 +72,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void deleteProduct(String article) {
+    public void deleteProduct(UUID article) {
         Product p = productRepository.findById(article).orElseThrow();
         p.setSold(true);
         productRepository.save(p);

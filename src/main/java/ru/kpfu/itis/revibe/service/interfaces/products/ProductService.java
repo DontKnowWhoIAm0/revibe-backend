@@ -5,11 +5,12 @@ import ru.kpfu.itis.revibe.dto.products.ProductDetailDto;
 import ru.kpfu.itis.revibe.entity.products.Product;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface ProductService {
-    ProductDetailDto getProduct(String article);
+    ProductDetailDto getProduct(UUID article);
     List<ProductDetailDto> getAllProducts();
     Product addProduct(ProductCreateDto dto);
-    Product updateProduct(String article, ProductCreateDto dto);
-    void deleteProduct(String article);
+    Product updateProduct(UUID article, ProductCreateDto dto);
+    void deleteProduct(UUID article);
 }

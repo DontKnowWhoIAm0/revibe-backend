@@ -10,6 +10,7 @@ import ru.kpfu.itis.revibe.repository.products.ProductRepository;
 import ru.kpfu.itis.revibe.service.interfaces.products.ProductService;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,14 +23,32 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDetailDto getProduct(String article) {
+    @Transactional
+    public ProductDetailDto getProduct(UUID article) {
         Product p = productRepository.findById(article).orElseThrow();
         ProductDetailDto dto = new ProductDetailDto();
         dto.setArticle(p.getArticle());
         dto.setName(p.getName());
+        dto.setDescription(p.getDescription());
         dto.setPrice(p.getPrice());
+        dto.setCategory(p.getCategory());
+        dto.setGender(p.getGender());
+        dto.setColor(p.getColor());
+        dto.setBrand(p.getBrand());
+        dto.setSize(p.getSize());
+        dto.setCondition(p.getCondition());
         dto.setSold(p.isSold());
         dto.setImageUrl(p.getImageUrl());
+
+        if (p.getBranch() != null) {
+            BranchDto branchDto = new BranchDto();
+            branchDto.setId(p.getBranch().getId());
+            branchDto.setName(p.getBranch().getName());
+            branchDto.setCity(p.getBranch().getCity());
+            branchDto.setAddress(p.getBranch().getAddress());
+            dto.setBranch(branchDto);
+        }
+
         return dto;
     }
 
@@ -78,7 +97,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct(String article, ProductCreateDto dto) {
+    public Product updateProduct(UUID article, ProductCreateDto dto) {
         Product p = productRepository.findById(article).orElseThrow();
         p.setName(dto.getName());
         p.setPrice(dto.getPrice());
@@ -87,7 +106,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteProduct(String article) {
+    public void deleteProduct(UUID article) {
         productRepository.deleteById(article);
     }
 }

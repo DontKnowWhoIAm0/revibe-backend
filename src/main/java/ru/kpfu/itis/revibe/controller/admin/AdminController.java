@@ -25,13 +25,13 @@ public class AdminController {
     }
 
     @PutMapping("/products/{article}")
-    public void updateProduct(@PathVariable String article,
+    public void updateProduct(@PathVariable UUID article,
                               @RequestBody ProductCreateDto dto) {
         adminService.updateProduct(article, dto);
     }
 
     @DeleteMapping("/products/{article}")
-    public void deleteProduct(@PathVariable String article) {
+    public void deleteProduct(@PathVariable UUID article) {
         adminService.deleteProduct(article);
     }
 
