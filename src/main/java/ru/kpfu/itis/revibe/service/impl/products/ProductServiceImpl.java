@@ -1,6 +1,8 @@
 package ru.kpfu.itis.revibe.service.impl.products;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.kpfu.itis.revibe.dto.products.BranchDto;
 import ru.kpfu.itis.revibe.dto.products.ProductCreateDto;
 import ru.kpfu.itis.revibe.dto.products.ProductDetailDto;
 import ru.kpfu.itis.revibe.entity.products.Product;
@@ -32,14 +34,32 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public List<ProductDetailDto> getAllProducts() {
         return productRepository.findAll().stream().map(p -> {
             ProductDetailDto dto = new ProductDetailDto();
             dto.setArticle(p.getArticle());
             dto.setName(p.getName());
+            dto.setDescription(p.getDescription());
             dto.setPrice(p.getPrice());
+            dto.setCategory(p.getCategory());
+            dto.setGender(p.getGender());
+            dto.setColor(p.getColor());
+            dto.setBrand(p.getBrand());
+            dto.setSize(p.getSize());
+            dto.setCondition(p.getCondition());
             dto.setSold(p.isSold());
             dto.setImageUrl(p.getImageUrl());
+
+            if (p.getBranch() != null) {
+                BranchDto branchDto = new BranchDto();
+                branchDto.setId(p.getBranch().getId());
+                branchDto.setName(p.getBranch().getName());
+                branchDto.setCity(p.getBranch().getCity());
+                branchDto.setAddress(p.getBranch().getAddress());
+                dto.setBranch(branchDto);
+            }
+
             return dto;
         }).collect(Collectors.toList());
     }

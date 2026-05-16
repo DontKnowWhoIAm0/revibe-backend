@@ -3,6 +3,7 @@ package ru.kpfu.itis.revibe.controller.admin;
 import org.springframework.web.bind.annotation.*;
 import ru.kpfu.itis.revibe.dto.auth.UserDto;
 import ru.kpfu.itis.revibe.dto.orders.OrderDto;
+import ru.kpfu.itis.revibe.dto.products.BranchDto;
 import ru.kpfu.itis.revibe.dto.products.ProductCreateDto;
 import ru.kpfu.itis.revibe.service.interfaces.admin.AdminService;
 
@@ -50,5 +51,15 @@ public class AdminController {
     @GetMapping("/orders/search")
     public List<OrderDto> searchOrders(@RequestParam String orderNumber) {
         return adminService.searchOrders(orderNumber);
+    }
+
+    @PostMapping("/branches")
+    public BranchDto addBranch(@RequestBody BranchDto dto) {
+        return adminService.addBranch(dto);
+    }
+
+    @GetMapping("/branches")
+    public List<BranchDto> getAllBranches() {
+        return adminService.getAllBranches();
     }
 }

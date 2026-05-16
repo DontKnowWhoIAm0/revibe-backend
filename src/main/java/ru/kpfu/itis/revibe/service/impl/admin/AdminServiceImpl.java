@@ -129,4 +129,32 @@ public class AdminServiceImpl implements AdminService {
             return dto;
         }).collect(Collectors.toList());
     }
+
+    @Override
+    public BranchDto addBranch(BranchDto dto) {
+        Branch branch = new Branch();
+        branch.setName(dto.getName());
+        branch.setCity(dto.getCity());
+        branch.setAddress(dto.getAddress());
+        branchRepository.save(branch);
+
+        BranchDto result = new BranchDto();
+        result.setId(branch.getId());
+        result.setName(branch.getName());
+        result.setCity(branch.getCity());
+        result.setAddress(branch.getAddress());
+        return result;
+    }
+
+    @Override
+    public List<BranchDto> getAllBranches() {
+        return branchRepository.findAll().stream().map(branch -> {
+            BranchDto dto = new BranchDto();
+            dto.setId(branch.getId());
+            dto.setName(branch.getName());
+            dto.setCity(branch.getCity());
+            dto.setAddress(branch.getAddress());
+            return dto;
+        }).collect(Collectors.toList());
+    }
 }

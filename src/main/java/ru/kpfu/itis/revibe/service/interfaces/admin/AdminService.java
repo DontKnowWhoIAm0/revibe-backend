@@ -2,6 +2,7 @@ package ru.kpfu.itis.revibe.service.interfaces.admin;
 
 import ru.kpfu.itis.revibe.dto.auth.UserDto;
 import ru.kpfu.itis.revibe.dto.orders.OrderDto;
+import ru.kpfu.itis.revibe.dto.products.BranchDto;
 import ru.kpfu.itis.revibe.dto.products.ProductCreateDto;
 
 import java.util.List;
@@ -17,4 +18,7 @@ public interface AdminService {
     void setEmployeeRole(UUID employeeId, String role);
 
     List<OrderDto> searchOrders(String orderNumber);
+
+    BranchDto addBranch(BranchDto dto);
+    List<BranchDto> getAllBranches();
 }
